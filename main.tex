@@ -1,0 +1,378 @@
+% ACS Postdoctoral Fellowship - Fellowship Research Plan (Section 6.1)
+% Formatting per ACS General Grant Application Instructions, Sept 2026:
+%   - 12pt Times New Roman minimum for text; 10pt for figures, legends, tables
+%   - Margins > 0.5 inches
+%   - Single or double spaced; if single, blank space between paragraphs
+%   - PI name in header on each page; page numbers upper right
+%   - 9 pages maximum, excluding references
+%
+% Compile: pdflatex research-plan.tex  (twice, for the page refs)
+
+\documentclass[12pt,letterpaper]{article}
+
+% ---------- page geometry: ACS requires > 0.5in margins ----------
+\usepackage[letterpaper,margin=0.6in,headheight=15pt,headsep=12pt]{geometry}
+
+% ---------- Times New Roman ----------
+% mathptmx = Times for text and math (Nimbus Roman, metrically identical to
+% Times New Roman). If you compile locally with XeLaTeX and have the real
+% font, swap these two lines for:
+%   \usepackage{fontspec}
+%   \setmainfont{Times New Roman}
+\usepackage{mathptmx}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+
+% ---------- header: PI name left, page number upper right ----------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\normalsize Hari, Kishore}
+\fancyhead[R]{\normalsize\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+% ---------- single spaced with space between paragraphs, per ACS ----------
+\usepackage{parskip}
+\linespread{0.97}\selectfont
+\setlength{\parskip}{4pt plus 2pt minus 1pt}
+\setlength{\parindent}{0pt}
+
+% ---------- section headings ----------
+\usepackage[explicit]{titlesec}
+\titleformat{\section}{\normalsize\bfseries}{}{0pt}{#1}
+\titlespacing*{\section}{0pt}{10pt plus 3pt minus 3pt}{3pt}
+\titleformat{\subsection}{\normalsize\bfseries\itshape}{}{0pt}{#1}
+\titlespacing*{\subsection}{0pt}{8pt plus 2pt minus 2pt}{2pt}
+
+% ---------- tables, figures, links ----------
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf,skip=4pt}   % 10pt for legends
+\usepackage{enumitem}
+\setlist{nosep,leftmargin=*}
+\usepackage[hidelinks]{hyperref}
+
+% ---------- references: numbered, in order of appearance ----------
+% ACS wants title, all authors, journal, volume, pages, year.
+% unsrtnat numbers in order of first citation and prints full author lists.
+\usepackage[numbers,sort&compress]{natbib}
+\bibliographystyle{unsrtnat}
+\setlength{\bibsep}{4pt plus 1pt}
+
+% ---------- toggle: internal notes, OFF for submission ----------
+\newif\ifnotes
+\notestrue           % \notesfalse before producing the submission PDF
+
+% ---------- shorthand ----------
+\newcommand{\lead}[1]{\textbf{#1}}
+
+\begin{document}
+
+\begin{center}
+{\large\bfseries Functional characterization of hybrid E/M plasticity and its link to metastatic potential}
+\end{center}
+
+\vspace{2pt}
+
+\section{A. Specific Aims}
+
+Phenotypic plasticity is the ability of a biological system to reversibly change its identity between multiple stable states. Plasticity along the epithelial-mesenchymal axis (EMP) is a crucial driver of metastasis and therapy resistance \cite{jolly2019}. Cells in hybrid E/M states, referred to as hybrid states from here on, carry higher tumor-initiating and metastatic potential than cells at either end of the spectrum \cite{pastushenko2018,jolly2019,subhadarshini2023}. Two of the properties attributed to them are primary: collective migration, made possible by the mixture of epithelial and mesenchymal markers, and the plasticity that lets a cell adapt to the stresses it meets during metastasis \cite{jolly2019}. The field scores that plasticity as a single quantity, and tumors are called more or less plastic \cite{tan2014,george2017,chakraborty2020}. We propose instead that plasticity comes in distinguishable classes with qualitatively different dynamics, and that their value to a cell differs.
+
+Three classes are distinguishable in Gene Regulatory Network (GRN) models, each predicting something different about a cell after perturbation. In a \emph{metastable} regime a hybrid cell leaves readily and settles at one extreme. In a \emph{stable} regime it holds one hybrid state and moves only under the right kind and size of perturbation. In a \emph{cloud} regime it moves continually among hybrid microstates while holding the marker combination that supplies collective migration. Two quantities separate them, applied in order. \emph{Reach}, the states accessible after a perturbation, assigns the regime. \emph{Retention}, the transitions a cell makes within the hybrid range before leaving it, separates stable from cloud. A cloud cell is multipotent and not omnipotent: reach is a count, so a cloud population still thins under a demand it cannot meet, more slowly than a mixture rather than not at all. The three regimes are therefore reference points on a continuum in reach and retention rather than discrete classes, and the intermediate cases the continuum predicts are reported rather than forced into one of the three. Which regimes a network can reach is a property of the network and not of the noise applied to it, so each network stands for a cell line, and the mechanisms in Aim 3 would decide which network a line carries.
+
+The regimes should not be equally metastatic, and the reason is collective. Metastasis makes conflicting demands in turn, requiring shear resistance and immune evasion in transit and re-epithelialization at colonization \cite{jolly2019}, and clusters of circulating tumor cells seed far more efficiently than single cells \cite{aceto2014}. A cluster whose cells each hold one fixed specialty answers every demand and spends the cells that answer it. A cluster whose cells shift together answers the same sequence without being depleted. Figure~\ref{fig:regimes} sets out the predicted orderings. The two are indistinguishable in a snapshot on any number of axes, which is what makes a dynamical measurement necessary.
+
+\lead{Central hypothesis.} Epithelial-mesenchymal plasticity comprises distinguishable dynamical regimes that differ in reach and retention, and the regimes a cell can access predict its metastatic competence better than its position on the epithelial-mesenchymal axis alone.
+
+\lead{Aim 1. Fix the regimes, their signatures, and what they imply for survival.} Reach and retention are computed on the state-transition graphs of multilevel EMT networks, across a noise sweep and at matched state-space size. The same computation fixes what Aim 2 depends on: the observation window each assignment requires, and the projection of model states onto a marker panel. A selection layer then applies the stresses of transit and colonization to simulated trajectories in small groups. The layer can show that the phenotypic framework does not produce survival under plausible filters, or that it does not separate the regimes. Either outcome identifies what the model is missing.
+
+\lead{Aim 2. Test the regimes in cells and against metastatic outcome.} Existing single-cell data and functional assays establish whether hybrid cells carry distinct specializations. Across roughly 30 mouse and human lines, cells are then sorted on one property and re-assayed on another over time, which separates a mixture of committed cells from a population that converts between states, and a TGF-$\beta$ dose series measures response steepness per line. Fourteen of these lines have been through orthotopic and tail vein metastasis experiments, so regime assignment is tested against those outcomes with baseline hybrid fraction as the competing predictor. Live imaging then measures transitions in single cells over the window Aim 1 specifies.
+
+\lead{Aim 3. Genetic and epigenetic mechanisms of the heterogeneity in plasticity.} Three candidate mechanisms for what makes regulation graded are tested against regime assignment: intermediate DNA methylation at EMT regulatory elements, regulator dosage and copy number, and microRNA-mediated buffering. Each predicts a different pattern of gradedness across the circuit, which is what makes them separable.
+
+Aims 1 and 2 together test the central hypothesis, and Aim 3 builds on them.
+
+\lead{What an answer buys.} Two tumors with identical hybrid fractions may carry different metastatic risk. If so, the quantity worth measuring in a patient sample is dynamical, and this project would supply both the measurement and the first test of whether it predicts anything.
+
+\section{B. Background and Significance}
+
+Plasticity is scored today as a single quantity, and tumors are called more or less plastic. Universal EMT metrics place a sample on one continuum and relate that position to survival and drug response \cite{tan2014}, and later metrics built on different gene lists agree closely on where a sample sits \cite{george2017,chakraborty2020}. The habit is not confined to EMT: stemness is scored the same way, as one index applied across every tumor type in TCGA \cite{malta2018}. In each case the score is a composition measurement. It counts what fraction of cells sit in a given state at the moment of sampling, and says nothing about whether they stay there, where they go when pushed, or how fast.
+
+The axes are not independent, which is what makes a one-dimensional score lossy. EMT generates cells with the properties of stem cells \cite{mani2008}, and a model in which EMT and drug resistance are coupled predicts hybrid cells that are drug-sensitive and hybrid cells that are drug-resistant, switching stochastically between them \cite{sahoo2021}. The same trade-off appears outside EMT, where HMGB2 sets the balance between proliferative and invasive melanoma states and cells pushed toward the invasive state divide less and tolerate drug better \cite{hunter2025}. Two cells at the same position on the EMT axis can therefore differ in what they are equipped to survive.
+
+That matters because the cells that matter for metastasis are defined by what they do over time. Hybrid states carry higher metastatic potential than either extreme \cite{pastushenko2018,jolly2019}, and metastasis demands different things at different points: motility to leave the primary tumor, and re-epithelialization to colonize. Phenotypic equilibrium in breast cancer lines is restored after sorting, so populations convert between states instead of consisting of fixed types \cite{gupta2011}. And clusters of circulating tumor cells seed metastasis far more efficiently than single cells \cite{aceto2014}, so a property that lets several cells hold compatible states at once has a specific advantage at the seeding step.
+
+Heterogeneity has long been known to predict outcome. Mutant-allele heterogeneity, diversity indices, copy-number heterogeneity and expression-based scores all predict survival across many tumor types \cite{mroz2013}, and modeling work has shown that clonal diversity forecasts outcome only under particular evolutionary conditions \cite{noble2020}. Every one of these scores a distribution at a single moment. Work on patient-derived material sharpens the point: clones isolated from a breast cancer line span the EMT spectrum and include three distinct intermediates with different metastatic properties, and multiplexed staining showed that EMT state and heterogeneity predict overall survival \cite{brown2022}. Those clones are stable intermediates, the stable regime described here.
+
+The claim this project makes concerns one particular pair: a population of stable hybrid cells carrying different specializations, and a population of hybrid cells that re-specialize together. Both sit at the same position on the EMT axis and carry the same distribution of specializations, so they should seed unequally while returning the same value to any index computed from one timepoint. The claim is narrow. A transcriptomic metric can already separate genuine hybrid cells from a mixture of epithelial and mesenchymal cells \cite{chakraborty2020}, a comparison resolved along the axis and not within one position on it. What has not been tested is whether a single population moves among hybrid states, or whether movement, as distinct from composition, predicts outcome. The regime assignment, the observation window and the marker panel are all fixed by the model before the cells are sorted.
+
+The innovation is a pair of quantities that can come apart. Reach and retention are usually run together under the word plasticity, which forces every cell onto one axis from rigid to plastic. Separating them makes room for a behavior that axis cannot express, high reach among hybrid states together with high retention within the hybrid range, which is the cloud regime. The regimes come from one network, not three models, since multilevel implementations of the same topology differ only in how many levels each node takes, so gradedness can be varied with the wiring held fixed; randomized parameter ensembles \cite{huang2017} vary several things at once and cannot isolate it. And the classification is put at risk against the measurement it would replace, since hybrid fraction is available for every line in the screen and Aim 2 runs it as the competing predictor.
+
+\lead{Relevance to cancer.} Metastasis causes most cancer deaths, and the hybrid E/M state is strongly associated with metastatic competence and therapy resistance across carcinomas \cite{jolly2019}. Successful completion of this work would establish whether the clinically relevant property of that state is compositional, as currently measured, or dynamical. If regimes differ in metastatic competence, two patient samples with the same hybrid fraction carry different risk, and the useful assay is one that perturbs and watches. This project does not deliver that assay for patient tissue. It establishes whether the quantity is worth measuring, and identifies which molecular mechanisms set the regime, which is what any attempt to move a tumor from one regime to another would have to target.
+
+% ---------------------------------------------------------------
+% FIGURE 1 placeholder. Replace with the schematic when it exists.
+% Keep legend text at 10pt (caption package is set to \small).
+% ---------------------------------------------------------------
+\begin{figure}[tp]
+\centering
+\includegraphics[width=\textwidth]{Fig1b_regimes_channel.pdf}
+\caption{\textbf{What separates the regimes is what a cluster can do when the stress changes.} All three leave the primary tumor as collectively migrating clusters, so cohesion at the outset does not distinguish them. A metastable cluster is hybrid on the EM axis and little else, and breaks apart at the first stress. A cluster of stable cells, each holding one fixed specialty, answers every stress and spends the cells that answer it. A cloud cluster re-specializes as a whole, so less is consumed; its cells are multipotent rather than omnipotent, so the ordering is one of degree. Rows 2 and 3 carry the same composition on any measured axis, so any index computed from one timepoint returns the same value for both. The potential column is an ordering and not a magnitude: it is what the selection layer in Aim 1 predicts, to be tested against the metastasis data in Aim 2, and higher metastatic potential is the direction that would correspond to worse patient prognosis.}
+\label{fig:regimes}
+\end{figure}
+
+\section{C. Preliminary Studies}
+
+\lead{Attribution.} The simulation results below were generated by the applicant. The flow cytometry panels, the orthotopic metastasis screen, the inducible constructs and the single-cell sequencing referred to throughout were generated by the Mani laboratory (Brown University) and are used here with permission; no part of that work is claimed as the applicant's own.
+
+Simulations already run show that graded regulation confines cells to the hybrid range and produces fixed points absent from the two-state model, with roughly half of settled cells landing on states the two-state catalogue does not contain. Trajectory runs under repeated perturbation add a condition to that result. Graded and two-state implementations of the same topology hold the hybrid range at comparable rates when perturbations are small, and separate several-fold when perturbations preserve their magnitude and the network is left to relax between them. These runs use a fixed intermediate level applied uniformly to the graded nodes, so they establish that the cloud regime can arise from gradedness in this network, under a stated perturbation regime, and do not yet speak to how much gradedness is needed or where it has to sit. That is the question Aim 1 takes up, and this result is the basis for expecting the regime to exist in cells. Figure~\ref{fig:kymograph} shows what separates the regimes in the trajectories and what a single-timepoint measurement cannot see.
+
+\begin{figure}[tp]
+\centering
+\includegraphics[width=\textwidth]{Fig2_kymograph_regimes.pdf}
+\caption{\textbf{Trajectories separate the regimes; the marginal distribution does not.} One line per cell, with the pooled distribution of states against the right edge of each panel. (A) A mixture of stable cells, each holding its own level. (B) A cloud population moving through the same states. The mixture is constructed by holding each cell at a level drawn from the cloud's pooled distribution, so the two marginals agree by construction and the panels differ only along the time axis.}
+\label{fig:kymograph}
+\end{figure}
+
+\section{D. Research Design and Methods}
+
+\subsection{Aim 1. Fix the regimes, their signatures, and what they imply for survival}
+
+\lead{Rationale.} Regimes remain a model construct until each predicts something a cell can be observed doing, and those predictions must be fixed before any cell is sorted or Aim 2 becomes an exercise in fitting. Three quantities are fixed here: the regimes each network can access, the observation window an assignment requires, and the markers it is read on.
+
+\lead{Regimes as capacities of a network.} Reach and retention are computed on the state-transition graph of a multilevel EMT network, which lists the states a cell can occupy and the moves available from each. Reach counts the states accessible from a starting state and assigns the regime. Retention separates stable from cloud, and is the number of transitions a trajectory makes within the hybrid range before leaving it. Being a ratio of counts, it can be compared against measured trajectories without assuming a correspondence between a model step and an interval of real time. Retention is a model quantity, and it predicts that the functions the hybrid range supplies are preserved while a cell moves within it. Collective migration is the clearest of those, since it requires neighboring cells to hold compatible adhesion states, and the mass cytometry panel supplies others measured in the same cell, including stemness, apoptotic state and hypoxia response. High retention therefore predicts a set of preserved functions, so a single disagreeing assay does not settle the question. Noise moves a network between regimes, since a cloud population at low enough noise settles and resembles a mixture of stable cells, so noise is swept across its range and the regimes that appear are recorded. Comparisons are made at matched state-space size, since a four-level network has more states than a two-level one for arithmetic reasons alone. An ensemble of EMT topologies is run this way, each in graded and two-state form, so gradedness is the only property varying within a pair.
+
+\lead{The observation window.} A metastable trajectory also moves among hybrid states before it exits, so too short a window makes it resemble a cloud trajectory. The distribution of transitions before exit sets a minimum window, and Aim 2 anchors that window in hours using the reference lines described there.
+
+\lead{Projection onto a measurable panel.} Model states live in gene space and flow cytometry reads markers, so reach and retention are computed in the projection onto a candidate marker set. Running several networks covering different pathological contexts yields a marker set that keeps the regimes separable, and the smallest number of channels that does so. That set is checked against the mass cytometry data already in hand, in which functional markers and EMT markers are measured in the same cell. Agreement supports the projection; disagreement indicates regulation the data resolve and the networks omit, and identifies which networks to revise.
+
+\lead{A selection layer that tests the framework.} Reach and retention say nothing about whether a cell survives getting anywhere, and the stages between primary tumor and metastatic site kill most cells that attempt them. A selection layer is therefore applied to trajectories in small groups, with the network and regime definitions held fixed. Most suspended breast tumor cells are killed by fluid shear, and survivors are enriched for mesenchymal and hybrid phenotypes, with shear inducing EMT through JNK signaling \cite{xin2020}; survivors are also softer \cite{xin2019}, and epithelial-like and mesenchymal-like lines differ under the shear and constriction of the microcirculation \cite{cognart2020}. Confinement is not only a filter but a cue that switches state through chromatin remodelling \cite{hunter2025}, which is why the layer acts on trajectories that can still move. A Boolean model integrating hypoxia, mechanosensing and TGF-$\beta$ signaling reproduces state changes across the metastatic cascade \cite{greene2025} and supplies the signaling scaffolding, representing neither immune clearance nor survival at the level of a group.
+
+Each regime yields a fraction of groups surviving transit and then meeting the re-epithelialization demand, and the predicted ordering is what Figure~\ref{fig:regimes} sets out. Three outcomes are possible. The ordering holds, which derives the schematic from the model. The regimes do not separate under the filters, which means the framework does not carry the survival claim. Or no regime survives at plausible filter strengths, which would mean the represented phenotypes are insufficient and would identify the missing axis. Filter strength is swept across its plausible range, since kill rates are not well constrained.
+
+\lead{What the perturbation has to be.} Separation depends on how far a perturbation moves a node and how much time passes between perturbations. Perturbations too small leave graded and two-state networks alike; perturbations faster than the network settles leave every implementation looking hybrid on a team-averaged coordinate, which is a property of the average and not of the state. Retention is therefore scored on the condition that node levels persist between perturbations. A perturbation reversing the sign of a node's level is directional by construction, defensible for a signal and not for fluctuation, so the sweep is repeated with random-sign perturbations of matched magnitude.
+
+\lead{Statistical analysis.} The unit is a network, since the model carries no kinetic parameters and what varies between lines is which links are graded. Networks are compared by the set of regimes the noise sweep returns, not by a value at one noise level. Separability is the proportion of networks whose reach and retention place them in one regime with no overlap against the adjacent range, with bootstrap intervals over the ensemble. Effect sizes replace significance tests, since ensemble size is set by computation. The dissociation test asks whether reach and retention are correlated across the ensemble; a rank correlation near unity would indicate a single underlying axis.
+
+\lead{Expected outcomes and benchmarks.} There is no precedent for setting a separability threshold in advance, so it will be fixed from the first ensemble and reported before any regime is assigned in cells. Networks falling between regimes are reported, not discarded, since intermediate cases are what continuous gradedness would produce. The second benchmark comes from runs already performed: under perturbations allowing relaxation, graded networks are predicted to hold the hybrid range several times more often than two-state networks of the same topology, and that gap to close when perturbations are too small or too rapid. For the selection layer the benchmark is robustness, that the predicted ordering holds across the filter sweep.
+
+\lead{Potential problems and alternatives.} The classification fails if the regimes collapse onto a single axis once state-space size is matched, and that outcome is reported. The aim depends on one unconfirmed result: the dissociation between reach and retention, which is central to the cloud regime. Testing it is the first task. If the two cannot come apart, the project reverts to a graded against switch-like comparison, which the dose series still tests.
+
+\subsection{Aim 2. Test the regimes in cells and against metastatic outcome}
+
+\lead{Rationale.} A population measured once cannot distinguish a mixture of committed cells from a population that converts between states. Sorting a subpopulation and watching it re-equilibrate separates the two, and this design established stochastic state transitions in breast cancer lines \cite{gupta2011}.
+
+\lead{What runs before the sorting work.} Mass cytometry already run on these models measures functional properties in the same cell as the epithelial and mesenchymal markers, covering stemness, apoptotic state, hypoxia, cell cycle and several signaling cascades, and establishes whether hybrid cells carry distinct specializations, which the mixture condition requires. Existing single-cell transcriptomics covers two models at one timepoint and is used to check marker behavior in those models rather than to assign regimes across the panel. Whether those come out discrete or continuous decides what follows, and both answers are informative: discrete specializations give a mixture to contrast the cloud regime against, continuous ones raise the likelihood that the cloud regime is present and supply the variable for ranking lines. Public resources extend this: cell-line data such as CCLE carries regime assignment beyond the panel in hand, and a parallel analysis of TCGA breast tumors asks whether hybrid samples occupy more than one dimension. Bulk tissue averages over cells, so that analysis speaks to multidimensionality and carries no regime assignment.
+
+\lead{Reference lines with known behavior.} Lines that do not hold a hybrid state after induction supply a metastable reference, and established stable hybrid lines supply a stable one. Hybrid cells isolated from each are followed until they re-equilibrate, which validates the assay on the existing low-dimensional panels, anchors the observation window from Aim 1 in hours, and brackets the retention axis from both ends, so the cloud regime is identified by exceeding both references in reach while matching the stable reference in retention.
+
+\lead{Approach.} Paired flow panels across roughly 30 mouse and human lines score cells as epithelial, hybrid or mesenchymal at baseline, after TGF-$\beta$, and after receptor inhibition. Cells are sorted on one property and re-assayed on the other, then re-assayed on the first over time. The regimes predict different outcomes, as Figure~\ref{fig:regimes} sets out: a stable hybrid population stays sorted, a metastable one re-equilibrates across the full range, a cloud population re-equilibrates within the hybrid range alone. TGF-$\beta$ is also titrated across a dose series, with response steepness measured per line, since transition rates depend on the dose and duration of EMT-inducing signals \cite{subhadarshini2023}. A dose series is a sustained directional input, corresponding in the model to perturbations applied slowly enough for the network to settle. The range must therefore span magnitudes large enough to move a node, below which the model predicts no separation.
+
+Sorting hybrid populations and following how the ratios regenerate is already under way in the collaborating lab. This aim adds the prior classification: each line is assigned a regime by the model, and its re-equilibration pattern and dose-response steepness are registered before those results exist. A sorting experiment on its own measures how fast ratios return. With assignments registered in advance it tests whether the regimes are real.
+
+\lead{Metastatic outcome, against hybrid fraction.} The classification is useful only if it predicts an outcome that position on the EMT axis does not. Fourteen mouse lines have been through an orthotopic screen with circulating tumor cell colony counts. Regime assignment is tested against these outcomes with baseline hybrid fraction entered as the competing predictor, not as a covariate. The same lines have also been through tail vein injection, which bypasses the primary tumor and reports on circulation onward, and comparing the two entry points discriminates where regime acts: stronger prediction of the tail vein outcome places the effect in transit and seeding, where the selection layer puts it, while stronger prediction of the orthotopic outcome places it at escape instead. Clustered circulating tumor cells are disproportionately efficient seeds \cite{aceto2014}, and cluster counts are the closest available readout of the collective migration that high retention predicts, so they are designated in advance as the primary test, with total burden secondary and the existing wound healing assays as the in vitro correlate, and the selection layer's predicted ranking of regimes by surviving fraction is fixed before the screen data are examined.
+
+\lead{Imaging, where rates are measured directly.} Population distributions before and after a perturbation are not switching rates. Live imaging of reporter lines tracks cells individually through state changes in a subset spanning the assignments, over the window Aim 1 specifies, which matters most for the cloud regime, whose definition concerns movement rather than position. It is placed last because it is worth doing only in lines whose assignment is settled. The collaborating lab has built ESRP1 and Vimentin reporters in human lines rather than E-cadherin and N-cadherin reporters, so this arm runs on the human panel, and regime assignment for those lines comes from the same flow and dose assays as the mouse panel. Where reporters are unavailable the aim reports re-equilibration kinetics, and per-cell rates go unmeasured.
+
+\lead{Statistical analysis and power.} Regime assignment is tested against cluster counts by rank correlation across the fourteen lines, with hybrid fraction in the same model and the two compared by difference in explained variance with bootstrap intervals. Dose-response steepness is estimated per line by fitting a Hill function to the fraction past the hybrid gate, with the Hill coefficient as the statistic. Fourteen lines support detection of a strong rank correlation ($\rho \approx 0.7$) and no more, so this arm is powered as a screen and reported as one. Lines are the unit for the metastasis comparison; replicate wells are the unit for the dose series.
+
+\lead{Expected outcomes and benchmarks.} The benchmarks divide by what each assay resolves. On existing panels, success is the reference lines behaving as predicted, which validates the assay and needs no new data. On a higher-dimensional panel, success is resolving structure inside the hybrid gate, which three bins cannot show. For the comparison against hybrid fraction, success is regime explaining substantially more variance in cluster counts, reported as a difference with its interval; with fourteen lines a small difference supports no claim either way, so the benchmark is a substantial difference or none.
+
+\lead{Potential problems and alternatives.} The three-color panels score one axis, so telling a cluster of specialists from a cloud needs several specialization markers on the same cell. Raw intensities are retained as a matter of course and give resolution within each channel but not extra channels, so the first check is whether the mass cytometry panels already run on these models carry the markers the Aim 1 projection calls for; where they do not, a panel is designed from that projection and the dose series carries the aim meanwhile. Cell-to-cell variation in receptor level can also flatten a dose response, and that alternative is tested by measuring steepness in single cells, not population means. The hypothesis fails if sorted hybrid populations in cloud-assigned lines re-equilibrate across the full range, if steepness is unrelated to assignment, or if hybrid fraction predicts cluster counts at least as well. Fourteen lines cannot establish that regime is uninformative, so a null result is reported as the limit of the panel's power.
+
+\subsection{Aim 3. Genetic and epigenetic mechanisms of heterogeneity in plasticity}
+
+\lead{Rationale.} Aims 1 and 2 establish that regimes exist and track outcome. Neither says what makes one cell's regulation graded and another's switch-like. Without that, regime is a label a cell is assigned. The therapeutic reading of the project needs it to be a property that can be moved. What produces an adaptive cell state remains an open question, with recent proposals placing it in stress-responsive machinery carrying regulatory combinatorics and cellular memory \cite{franca2026}.
+
+\lead{From a mechanism to a network property.} A mechanism that correlates with a regime label explains nothing on its own. What the model needs is a mapping from mechanism to the property that sets the regime, which here is which links are graded. Epigenetic regulators compete globally for targets, so a change in one redistributes marks and alters the EMT landscape in ways local models do not capture \cite{alradhawi2022}. That framework supplies the route from a methylation change to a change in how graded a link is, and is the step that turns this aim from a correlation into a mechanism.
+
+Two mechanisms are tested, and they predict different patterns of gradedness, which makes them separable. Intermediate DNA methylation can act globally or at particular elements, and which applies is testable; locally disordered methylation dominates intratumor methylome variation, accompanies low-level expression and tracks worse outcome \cite{landau2014}. MicroRNA-mediated buffering acts on miR-200 family targets, so the gradedness it produces is concentrated on the mesenchymal side of the circuit; the miR-200/ZEB circuit behaves as a ternary switch driven by miR-34/SNAIL, which acts as a noise-buffering integrator \cite{lu2013}. Asking which patterns reach the cloud regime at all is a model question Aim 1 can answer, and it turns how much gradation is needed into how much and where.
+
+\lead{Approach.} Read-level methylation disorder at EMT regulatory elements is scored against regime assignment across lines. This runs on public cell-line resources for the human panel, where read-level methylation is available. Equivalent data for the mouse syngeneic lines is not assumed: whether it exists is checked in the first months, and where it does not, the analysis runs on human lines with regime assignment from the same flow and dose assays. For the microRNA arm, inducible miR-200 and ZEB1 lines exist in D2A1 and EMT6 and have been through metastasis experiments in the collaborating lab. No new perturbation is proposed. The model predicts where those induced states sit in reach and retention and how their dose-response steepness should change, and those predictions are checked against outcomes that already exist. This analysis forms part of a collaborative manuscript in preparation with that laboratory, and the fellowship would fund the modeling and the analysis, not the experiments.
+
+\lead{Statistical analysis, power and benchmarks.} Each mechanism is entered as a predictor of regime assignment across lines, with both in one model so shared variance is visible. This is a correlational screen across roughly 30 lines, so no power calculation on a treatment effect applies, and it is reported as a screen with effect sizes and intervals. Success is at least one mechanism tracking regime assignment, a gradedness pattern matching the one that mechanism predicts, and, for the microRNA arm, the model reproducing from regime assignment alone the observed ordering in which pushing off the hybrid state in either direction reduces metastasis.
+
+\lead{Potential problems and alternatives.} Correlation between a mechanism and a regime does not establish that the mechanism produces the regime, and the microRNA arm tests a prediction against a completed perturbation, making no new causal claim of its own. The aim fails if neither mechanism tracks regime assignment, which would mean gradedness is set by something outside this list, most likely chromatin accessibility instead of sequence or methylation. That outcome is reportable and narrows the field.
+
+\lead{Relation to other funded work.} The modeling framework above arose from work supported by an active award on EMT and stemness held jointly by the mentor and the collaborating laboratory. That award asks how epigenetic control shapes the stemness axis. This aim asks what sets gradedness in the EMT circuit and whether it determines plasticity regime, a different question on a different axis, and no specific aim is shared.
+
+\subsection{Feasibility, timeline and risks}
+
+The first two years run on existing material and the third buys the measurement the first two cannot make. The modeling code exists and has produced the preliminary results, the flow panels and the metastasis experiments have been run, and no aim requires a new animal cohort. Aim 1 occupies the first six months, beginning with the reach-and-retention dissociation that the rest depends on, and delivers the fixed signatures before any cell is sorted. Aim 2 runs from month four to month twenty-four: the check on existing panel coverage in month four, the dose series as soon as it returns, the metastasis analysis from month eighteen once assignments exist, and imaging from month twenty-four. Aim 3 starts at month twenty, since its computational half needs nothing from the other aims. Nothing is blocked: the dose series does not wait on the sorting experiments, and the methylation analysis does not wait on either.
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{@{}p{0.26\textwidth}p{0.26\textwidth}p{0.42\textwidth}@{}}
+\toprule
+\textbf{Risk} & \textbf{What it costs} & \textbf{Response} \\
+\midrule
+Reach and retention do not dissociate in simulation & The three-regime scheme reduces to two & Tested first, in month one; the project reverts to a graded against switch-like comparison, which the dose series still tests \\
+\addlinespace
+Existing panels measure too few markers at once & A cluster of specialists cannot be told from a cloud & Mass cytometry panels already run on these models are checked first; where they fall short, a panel is designed from the model's projection \\
+\addlinespace
+TGF-$\beta$ was applied at a single dose rather than titrated & No existing data speak to steepness & A new dose series is the default plan, and is a request to the collaborating lab, not something this award funds \\
+\addlinespace
+Reporters exist only in human lines & Per-cell rates cannot be measured in the mouse panel & The imaging arm runs on the human lines, with regime assignment from the same assays; elsewhere the aim reports re-equilibration kinetics and says rates were inferred \\
+\addlinespace
+Fourteen lines detect only a strong effect & The metastasis arm cannot rule regime out & Powered and reported as a screen; the model and cell arms stand independently \\
+\addlinespace
+Analyses of the collaborating lab's data may already be committed & Duplicated or contested work & Resolved before submission by asking which analyses are unclaimed \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\lead{What the project does not claim.} It does not establish that regime causes metastatic competence, and it does not extend to tissue architecture at the metastatic site. Per-cell transition rates are measured only in the subset of lines the imaging arm covers, and are inferred elsewhere.
+
+\section{E. Impact}
+
+That heterogeneity matters is long established, and so are the indices built to score it. What has stayed out of reach is what produces heterogeneity in a given tumor and what it does once present, because a single number collapses both questions into one. Treating plasticity as multidimensional separates them. The regimes proposed here differ in mechanism, in what they predict under successive stresses, and in metastatic competence, while returning the same value to any index computed at one timepoint. If they can be told apart in cells, the field gains a description of a tumor cell population that composition cannot supply, and a reason to measure something other than how varied a sample looks.
+
+The methodological contribution is a pair of quantities, reach and retention, computed on a network and read on a marker panel the same model specifies, which gives the modeling literature on EMT predictions that a flow cytometer can refute. The project also leaves behind a model in which the survival of a group of cells depends on the plasticity regime of its members, which existing models of the metastatic cascade do not represent.
+
+The clinical route runs through Aim 3, not Aim 2. Patient-derived lines can be followed dynamically, and clones from such lines have already been shown to span the EMT spectrum with different metastatic behavior \cite{brown2022}, so a perturbation assay is not out of reach for patient material. But a biopsy is a single timepoint, and a measurement that scales to routine samples has to be static. Identifying what sets gradedness, which is what Aim 3 asks, is what would supply a static signature that marks a dynamic property. That is also the premise behind any attempt to move a tumor out of its most metastatic regime.
+
+\clearpage
+\small
+\bibliography{references}
+
+\ifnotes
+\clearpage
+\section*{Appendix: ACS requirements for this document}
+\addcontentsline{toc}{section}{Appendix}
+\small
+
+Internal checklist, compiled from the ACS General Grant Policies and the General
+Grant Application Instructions, both effective September 2026. Not part of the
+submitted proposal: set \texttt{\textbackslash notesfalse} in the preamble to
+drop this appendix before export. Page numbering restarts nowhere, so removing
+it leaves the body pagination unchanged.
+
+\subsection*{A. The research plan itself (Section 6.1)}
+
+Nine pages maximum, excluding references. The plan must be realistic for the
+period of support requested, and a timeline is encouraged. Six required
+elements, in this order:
+
+\begin{enumerate}
+\item \textbf{Specific Aims.} List the objectives and goal of the research
+  proposed, and describe the specific aims briefly, in order of priority.
+\item \textbf{Background and Significance.} Concisely summarize and critically
+  evaluate relevant work done by others that provides a rationale or
+  justification for the project. State specifically how successful completion
+  of the work will advance scientific knowledge relevant to cancer initiation,
+  prevention, detection, treatment or survivorship.
+\item \textbf{Preliminary Studies.} Optional. If included, give results of
+  research accomplished by the applicant or others that is relevant to the
+  proposal, explain its significance to the scientific rationale, and
+  \emph{carefully attribute the source of any preliminary data}.
+\item \textbf{Research Design and Methods.} Methods and procedures in
+  sufficient detail to permit evaluation by other scientists. Must include: a
+  statistical analysis plan; a power analysis to support design and sample size
+  where applicable; expected outcomes and anticipated benchmarks for success;
+  potential difficulties and limitations of the methods; and alternative
+  methods and approaches.
+\item \textbf{Impact.} How the anticipated outcomes will affect concepts,
+  methods, technologies, treatments, services or interventions, and move the
+  field forward.
+\item \textbf{References.} Numbered in order of appearance in the text. Each
+  must include title, names of \emph{all} authors, book or journal, volume
+  number, page numbers and year. Not counted against the page limit.
+\end{enumerate}
+
+\subsection*{B. Formatting, applying to every uploaded template}
+
+\begin{itemize}
+\item Principal Investigator name in the header of each template. Do not change
+  the footers on ACS-supplied templates.
+\item Single or double spaced. If single spaced, leave a blank space between
+  paragraphs.
+\item Type size: 12-point Times New Roman or 11-point Arial minimum for text;
+  10-point Times New Roman or 9-point Arial may be used for figures, legends
+  and tables.
+\item Margins greater than 0.5 inches on all sides, unless a supplied template
+  sets different margins.
+\item Page numbers in the upper right corner, according to the proposal
+  sections listed in the Table of Contents.
+\item Do not number: Signature Page, Contact Page, General Audience Summary,
+  Structured Technical Abstract, Statement of Cancer Relevancy and Impact,
+  Justification of Alignment with Research Priorities, Budget and
+  Justification, and the Appendix.
+\item All attachments, including the Appendix, upload as PDF under
+  ``Application Sections'' in ProposalCentral, each with the correct attachment
+  type selected.
+\end{itemize}
+
+\subsection*{C. What reviewers score this document against}
+
+\begin{itemize}
+\item \textbf{Research plan summary, significance and cancer relevance.}
+  Whether the project addresses an important problem or critical barrier and is
+  important to cancer research; how completing the aims would change concepts,
+  methods, technologies, treatments, services or interventions; how the work is
+  relevant to people at risk for or living with cancer, their families and
+  caregivers, or populations facing an unequal burden. Relevance to cancer may
+  be indirect, but the connection must be clearly articulated by the applicant.
+\item \textbf{Research plan approach.} Whether the hypothesis, objectives and
+  aims are appropriate for the project period; whether the strategy,
+  methodology and analyses are well reasoned; the quality of any preliminary
+  data, judged for feasibility and justification; whether statistical
+  considerations, potential problems, alternative strategies and benchmarks for
+  success are clearly presented. For early-stage or hypothesis-generating work,
+  whether the study is well justified and the risks mitigated. A postdoctoral
+  fellow's plan is not expected to show the breadth and depth of a senior
+  scientist's, but it must be fundamentally sound.
+\item \textbf{Candidate.} Whether the proposed training and research
+  \emph{broadens the applicant's experience beyond their graduate work} and
+  aligns with their stated career goals.
+\end{itemize}
+
+\subsection*{D. The rest of the package, for reference}
+
+Applicant's sections: Table of Contents (2 pages max, with appendices itemised
+at the bottom); Pending Fellowship Applications (2.1); Biographical Sketch on
+the ACS template, 5 pages max (3.1); Reply to Previous Review (4.1), marked
+``Not Applicable'' for a new submission; Statement of Experience, Training
+Potential and Career Goals, 3 pages max (5.1); this research plan (6.1); and
+Letters of Recommendation from three people other than the mentor (7.1), which
+must be uploaded before the application can be submitted.
+
+Mentor's sections, prepared by the primary mentor: Proposed Training and
+Mentoring, 3 pages max (8.1), which must state whether the research plan was
+prepared independently by the applicant or in collaboration with the mentor;
+Mentor Commitment Letter (9.1); Research and Training Environment, 3 pages max
+(10.1); NIH-format Biosketch via SciENcv (11.1); Research Support of Mentor
+(12.1), listing granting agency, project title, direct costs with per-year or
+total clearly indicated, and term of award; and Compliance Statements (13.1).
+
+Typed into ProposalCentral rather than uploaded: General Audience Summary
+(3,100 characters, lay language, scored by Community Research Partners);
+Structured Technical Abstract (3,100 characters, organized as Background,
+Objective/Hypothesis, Specific Aims, Study Design); and Statement of Cancer
+Relevance and Impact (1,500 characters, no technical jargon).
+
+\subsection*{E. Terms}
+
+Three-year fellowship: \$217,500 total. Stipend \$66,000, \$68,000 and \$70,000
+across years one to three, salary only and not intended to cover fringe
+benefits, though the institution may supplement it provided 100\% research
+effort on the project is maintained. Allowance \$4,000 per year, plus \$1,500
+in the final year prioritised for travel to the ACS Jiler Professors and
+Fellows Conference. No indirect costs. The fellow must remain in a mentored,
+non-faculty role for the duration of the award, and may not hold another
+postdoctoral fellowship concurrently. ACS does not fund projects that share
+specific aims with other funded or pending work.
+
+\subsection*{F. Use of AI tools}
+
+The applicant is responsible for all content in the application, including
+anything generated with an AI tool or large language model. ACS asks that such
+tools be credited and sources cited where possible, and that institutional
+guidelines be followed.
+\fi
+
+\end{document}
